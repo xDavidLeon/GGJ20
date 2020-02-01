@@ -19,12 +19,16 @@ public class Dangerous : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (Time.time - timeLastHit < 0.5f) return;
+        if (Time.time - timeLastHit < 0.25f) return;
+        ContactPoint contact = collision.GetContact(0);
         if (collision.transform.CompareTag("Player"))
         {
             timeLastHit = Time.time;
-            ContactPoint contact = collision.GetContact(0);
-            GameManager.Instance.InstantiateDecalBlood(contact.point, -contact.normal, collision.rigidbody);
+            GameManager.Instance.InstantiateDecal(GameManager.Instance.decalBloodPrefab, contact.point, -contact.normal, collision.rigidbody);
         }
+
+        Collider[] cs = Physics.OverlapSphere(contact.point, 0.5f, ~0, QueryTriggerInteraction.Collide);
+        foreach (Collider c in cs)
+            if (c.GetComponent<FragileProp>() != null) c.GetComponent<FragileProp>().Drop();
     }
 }
