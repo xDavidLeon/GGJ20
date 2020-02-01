@@ -94,15 +94,15 @@ public class Circuit : MonoBehaviour
         slots.Add(W1);
 
         sSlot W2 = new sSlot(397, 105, true);
-        W2.circuit_input = 0;
+        W2.circuit_input = 1;
         slots.Add(W2);
 
         sSlot W3 = new sSlot(397, 149, true);
-        W3.circuit_input = 0;
+        W3.circuit_input = 2;
         slots.Add(W3);
 
         sSlot W4 = new sSlot(397, 187, true);
-        W4.circuit_input = 0;
+        W4.circuit_input = 3;
         slots.Add(W4);
     }
 
