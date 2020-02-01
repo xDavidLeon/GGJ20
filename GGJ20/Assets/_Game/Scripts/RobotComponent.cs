@@ -9,4 +9,9 @@ public class RobotComponent : MonoBehaviour
     public float input = 0.0f;
 
     public Rigidbody chassis;
+
+    public virtual void Reset()
+    {
+
+    }
 }
