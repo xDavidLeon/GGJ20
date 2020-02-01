@@ -60,3 +60,5 @@ crashlytics-build.properties
 
 GGJ20/Library/
 GGJ20/Logs/
+GGJ20/Temp/
+GGJ20/obj/
