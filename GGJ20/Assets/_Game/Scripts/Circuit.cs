@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -12,6 +12,8 @@ public class sSlot
     public int color;
     public float data = 0;
     public bool is_output;
+    public int circuit_output;
+    public int circuit_input;
 
     public int circuitID = 0;
 
@@ -22,6 +24,8 @@ public class sSlot
         connected_to = -1;
         color = 0;
         data = 0;
+        circuit_output = -1;
+        circuit_input = -1;
     }
 };
 
@@ -64,41 +68,101 @@ public class Circuit : MonoBehaviour
     void initBoard()
     {
         sSlot A = new sSlot(139, 59, false);
+        A.circuit_output = 0;
         slots.Add(A);
 
         sSlot B = new sSlot(139, 103, false);
+        B.circuit_output = 1;
         slots.Add(B);
 
         sSlot C = new sSlot(139, 150, false);
+        C.circuit_output = 2;
         slots.Add(C);
 
-        sSlot D = new sSlot(139, 195, false);
+        sSlot D = new sSlot(139, 194, false);
+        D.circuit_output = 3;
         slots.Add(D);
 
+        sSlot NotIN = new sSlot(260, 172, false);
+        slots.Add(NotIN);        
+        
+        sSlot NotOUT = new sSlot(192, 172, true);
+        slots.Add(NotOUT);        
+
         sSlot W1 = new sSlot(397, 69, true);
+        W1.circuit_input = 0;
         slots.Add(W1);
 
         sSlot W2 = new sSlot(397, 105, true);
+        W2.circuit_input = 0;
         slots.Add(W2);
 
         sSlot W3 = new sSlot(397, 149, true);
+        W3.circuit_input = 0;
         slots.Add(W3);
 
         sSlot W4 = new sSlot(397, 187, true);
+        W4.circuit_input = 0;
         slots.Add(W4);
     }
 
     void UpdateBoard()
     {
-        for (int i = 0; i < robotComponents.Count; i++)
+        ReadCircuitInputs();
+        
+        float f = ReadSlotData(4);
+        WriteSlotData(5,-f);
+        
+        WriteCircuitOutputs();
+    }
+    
+    float ReadSlotData( int slotnum )
+    {
+        sSlot slot = slots[slotnum];
+        if(slot.connected_to == -1)
+            return slot.data;
+        sSlot target_slot = slots[slot.connected_to];
+        slot.data = target_slot.data;
+        return target_slot.data;
+    }
+    
+    void WriteSlotData( int slotnum, float data )
+    {
+        sSlot slot = slots[slotnum];
+        slot.data = data;
+        if(slot.connected_to == -1)
+            return;
+        sSlot target_slot = slots[slot.connected_to];
+        target_slot.data = data;
+    }
+    
+    void ReadCircuitInputs()
+    {
+        for (int j = 0; j < slots.Count; ++j)
         {
-            if (controlInputs.Count < i) continue;
-            robotComponents[i].input = controlInputs[i].input;
+            sSlot slot = slots[j];
+            if (slot.circuit_input == -1) //because a board input slot is a data output slot
+                continue;
+            if( controlInputs.Count < slot.circuit_input )
+                continue;
+            slot.data = controlInputs[ slot.circuit_input ].input;
         }
-        //TransferSlotData();
-        //compute board logic here
     }
 
+    void WriteCircuitOutputs()
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            sSlot slot = slots[i];
+            if (slot.circuit_output == -1) //because a board input slot is a data output slot
+                continue;
+            if( robotComponents.Count < slot.circuit_output )
+                continue;
+            robotComponents[slot.circuit_output].input = slot.data;
+        }
+    }
+    
+    //not used
     void TransferSlotData()
     {
         for (int i = 0; i < 5; ++i)
@@ -110,7 +174,7 @@ public class Circuit : MonoBehaviour
                     continue;
 
                 sSlot target_slot = slots[slot.connected_to];
-                DrawWire((int)slot.pos.x, (int)slot.pos.y, (int)target_slot.pos.x, (int)target_slot.pos.y);
+                target_slot.data = slot.data;
             }
         }
     }
