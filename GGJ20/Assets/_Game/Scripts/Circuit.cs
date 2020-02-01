@@ -159,6 +159,7 @@ public class Circuit : MonoBehaviour
                 continue;
             if( robotComponents.Count < slot.circuit_output )
                 continue;
+            ReadSlotData(i); //update slot
             robotComponents[slot.circuit_output].input = slot.data;
         }
     }
