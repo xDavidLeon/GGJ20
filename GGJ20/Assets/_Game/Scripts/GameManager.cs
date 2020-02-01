@@ -6,13 +6,28 @@ using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
+    public enum GameState
+    {
+        Control = 0,
+        Edit = 1
+    };
+
+    public GameState currentState = GameState.Control;
+
     public GameObject UIWin;
 
     public GameObject decalBloodPrefab;
 
+    public Circuit circuit;
+
     private void Start()
     {
         UIWin.GetComponent<CanvasGroup>().alpha = 0.0f;
+    }
+
+    public void SetGameState(GameState state)
+    {
+        if (currentState == state) return;
     }
 
     public void Win()
