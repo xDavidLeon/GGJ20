@@ -59,7 +59,6 @@ public class Circuit : MonoBehaviour
 
     private void Start()
     {
-        OpenCover();
     }
 
     void initBoard()
