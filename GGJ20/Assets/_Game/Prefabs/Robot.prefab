@@ -60,6 +60,7 @@ MonoBehaviour:
   rt: {fileID: 8400000, guid: f9e99fae1fd413140b87ea38a040bccb, type: 2}
   t: {fileID: 2800000, guid: b07d5cc661e672e41aa392af0e6c09d0, type: 3}
   cursorpos: {x: 0, y: 0}
+  slots: []
   circuitCover: {fileID: 4283269353847678112}
 --- !u!1 &6600271213488994521
 GameObject:
@@ -204,6 +205,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Circuit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953598576110793738, guid: 29100f7519afcbb488ddbc2942edf3de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882426470081921817, guid: 29100f7519afcbb488ddbc2942edf3de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442717031750285748, guid: 29100f7519afcbb488ddbc2942edf3de,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7289581533302599715, guid: 29100f7519afcbb488ddbc2942edf3de,
         type: 3}
