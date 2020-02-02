@@ -9,13 +9,13 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeSinceLevelLoad > 5.0f)
-            SceneManager.LoadScene("Game");
+        if (Time.timeSinceLevelLoad > 5.0f || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            SceneManager.LoadScene("Level01");
     }
 }

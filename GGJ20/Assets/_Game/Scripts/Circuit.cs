@@ -49,8 +49,9 @@ public class Circuit : MonoBehaviour
 
     public Transform pointOfInterest;
 
-    public int levelID = 0;
-    public bool in_editor = true;
+    private int levelID = 0;
+    public RectTransform panelEdit;
+    public RectTransform panelControl;
 
     Plane plane;
 
@@ -67,22 +68,24 @@ public class Circuit : MonoBehaviour
     [ContextMenu("Gather Control Inputs")]
     public void GatherControlInputs()
     {
-        controlInputs = Object.FindObjectsOfType<ControlInput>().ToList();
+        controlInputs = GetComponentsInChildren<ControlInput>().ToList();
     }
 
     void Awake()
     {
         slots = new List<sSlot>();
-        initBoard();
     }
 
     private void Start()
     {
-
+        initBoard();
+        //GatherRobotComponents();
+        GatherControlInputs();
     }
 
     void initBoard()
     {
+        levelID = GameManager.Instance.level;
         circuitMR.material.SetTexture( "_BaseMap", circuit_textures[ levelID ] );
         blueprintImg.sprite = blueprint_textures[ levelID ];
 
@@ -219,11 +222,14 @@ public class Circuit : MonoBehaviour
         for (int j = 0; j < slots.Count; ++j)
         {
             sSlot slot = slots[j];
+            if (slot == null)
+            {
+                Debug.LogWarning($"Null slot {j}", this);
+                continue;
+            }
             if (slot.circuit_input == -1) //because a board input slot is a data output slot
                 continue;
             if (controlInputs.Count < slot.circuit_input)
-                continue;
-            if (controlInputs.Count > slot.circuit_input)
                 continue;
 
             slot.data = controlInputs[slot.circuit_input].input;
@@ -309,7 +315,7 @@ public class Circuit : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
         //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
         float enter = 0.0f;
-        if ( in_editor && plane.Raycast(ray, out enter) )
+        if ( GameManager.Instance.currentState == GameManager.GameState.Edit && plane.Raycast(ray, out enter) )
         {
             Vector2 hitpos = ray.GetPoint(enter);
             cursorpos = canvasObject.transform.InverseTransformPoint(hitpos);
@@ -456,5 +462,20 @@ public class Circuit : MonoBehaviour
     public void CloseCover()
     {
         circuitCover.transform.DOLocalMoveX(0.0f, 1.0f);
+    }
+
+    public void ExitEditMode()
+    {
+        GameManager.Instance.SetGameStateControl();
+    }
+
+    public void EnterEditMode()
+    {
+        GameManager.Instance.SetGameStateEdit();
+    }
+
+    public void Retry()
+    {
+        GameManager.Instance.Restart();
     }
 }

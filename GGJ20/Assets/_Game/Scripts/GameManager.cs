@@ -14,19 +14,20 @@ public class GameManager : Singleton<GameManager>
 
     public GameState currentState = GameState.Control;
 
-    [Header("Control State")]
-    public RectTransform rtControl;
-    public Transform camControlTransform;
-
-    [Header("Edit State")]
-    public RectTransform rtEdit;
+    private Transform camControlTransform;
 
     [Header("General")]
     public RectTransform UIWin;
 
+    [Header("Effects")]
     public GameObject decalBloodPrefab;
+    public GameObject particlesConfetti;
+
     private Circuit circuit;
     private Character character;
+
+    public int level = 0;
+    private bool isWin = false;
 
     public Circuit Circuit
     {
@@ -50,10 +51,61 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        Scene activeScene = SceneManager.GetActiveScene();
+        level = activeScene.buildIndex - 1;
+    }
+
     private void Start()
     {
         UIWin.GetComponent<CanvasGroup>().alpha = 0.0f;
+        camControlTransform = GameObject.Find("CameraControlPosition").transform;
         SetGameState(GameState.Control, true);
+    }
+
+    private void Update()
+    {
+        CheckInput();
+        CheckWinCondition();
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene("TitleScreen");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene("Level01");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("Level02");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SceneManager.LoadScene("Level03");
+        }
+    }
+
+    private void CheckWinCondition()
+    {
+        if (isWin) return;
+
+        switch (level)
+        {
+            case -1:
+                break;
+            case 0:
+                if (Circuit.robotComponents[0].input > 0.5f)
+                {
+                    Win();
+                }
+                break;
+        }
     }
 
     public void SetGameState(GameState state, bool force = false)
@@ -65,10 +117,10 @@ public class GameManager : Singleton<GameManager>
             Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f).SetId(this);
             Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f).SetId(this);
 
-            rtControl.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            rtControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
-            rtEdit.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            rtEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
+            Circuit.panelControl.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
+            Circuit.panelEdit.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
 
             Circuit.OpenCover();
         }
@@ -77,10 +129,10 @@ public class GameManager : Singleton<GameManager>
             Camera.main.transform.DOMove(camControlTransform.position, 1.0f).SetId(this);
             Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f).SetId(this);
 
-            rtEdit.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            rtEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
-            rtControl.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            rtControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
+            Circuit.panelEdit.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
+            Circuit.panelControl.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
 
             Circuit.CloseCover();
 
@@ -103,7 +155,17 @@ public class GameManager : Singleton<GameManager>
 
     public void Win()
     {
-        UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f);
+        isWin = true;
+        GameObject.Instantiate(particlesConfetti);
+        UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 2.0f).SetDelay(2.0f);
+        Invoke("LoadNextLevel", 6);
+    }
+
+    private void LoadNextLevel()
+    {
+        int toLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        if (toLoad >= SceneManager.sceneCountInBuildSettings) toLoad = 0;
+        SceneManager.LoadScene(toLoad);
     }
 
     public void Restart()
