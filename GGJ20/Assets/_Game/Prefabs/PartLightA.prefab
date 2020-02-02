@@ -48,7 +48,7 @@ MonoBehaviour:
   input: 0
   chassis: {fileID: 0}
   light: {fileID: 1931566675820927107}
-  maxIntensity: 0.2
+  maxIntensity: 1
 --- !u!1 &4482165364765304737
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
+  m_MassScale: 10000
   m_ConnectedMassScale: 1
 --- !u!1 &5438601501231833723
 GameObject:
@@ -284,7 +284,7 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
+  m_MassScale: 10000
   m_ConnectedMassScale: 1
 --- !u!1 &6769673629350332189
 GameObject:
@@ -329,7 +329,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.17609818, b: 0, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 1
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

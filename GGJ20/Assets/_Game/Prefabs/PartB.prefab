@@ -340,7 +340,7 @@ HingeJoint:
   m_UseMotor: 1
   m_Motor:
     targetVelocity: 0
-    force: 1000
+    force: 100
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
@@ -478,5 +478,5 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 100
+  m_MassScale: 10000
   m_ConnectedMassScale: 1

@@ -58,6 +58,12 @@ public class Circuit : MonoBehaviour
         robotComponents = GetComponentsInChildren<RobotComponent>().ToList();
     }
 
+    [ContextMenu("Gather Control Inputs")]
+    public void GatherControlInputs()
+    {
+        controlInputs = Object.FindObjectsOfType<ControlInput>().ToList();
+    }
+
     void Awake()
     {
         slots = new List<sSlot>();
@@ -87,10 +93,10 @@ public class Circuit : MonoBehaviour
         slots.Add(D);
 
         sSlot NotIN = new sSlot(260, 172, false);
-        slots.Add(NotIN);        
-        
+        slots.Add(NotIN);
+
         sSlot NotOUT = new sSlot(192, 172, true);
-        slots.Add(NotOUT);        
+        slots.Add(NotOUT);
 
         sSlot W1 = new sSlot(397, 69, true);
         W1.circuit_input = 0;
@@ -112,33 +118,33 @@ public class Circuit : MonoBehaviour
     void UpdateBoard()
     {
         ReadCircuitInputs();
-        
+
         float f = ReadSlotData(4);
-        WriteSlotData(5,-f);
-        
+        WriteSlotData(5, -f);
+
         WriteCircuitOutputs();
     }
-    
-    float ReadSlotData( int slotnum )
+
+    float ReadSlotData(int slotnum)
     {
         sSlot slot = slots[slotnum];
-        if(slot.connected_to == -1)
+        if (slot.connected_to == -1)
             return slot.data;
         sSlot target_slot = slots[slot.connected_to];
         slot.data = target_slot.data;
         return target_slot.data;
     }
-    
-    void WriteSlotData( int slotnum, float data )
+
+    void WriteSlotData(int slotnum, float data)
     {
         sSlot slot = slots[slotnum];
         slot.data = data;
-        if(slot.connected_to == -1)
+        if (slot.connected_to == -1)
             return;
         sSlot target_slot = slots[slot.connected_to];
         target_slot.data = data;
     }
-    
+
     void ReadCircuitInputs()
     {
         for (int j = 0; j < slots.Count; ++j)
@@ -146,9 +152,12 @@ public class Circuit : MonoBehaviour
             sSlot slot = slots[j];
             if (slot.circuit_input == -1) //because a board input slot is a data output slot
                 continue;
-            if( controlInputs.Count < slot.circuit_input )
+            if (controlInputs.Count < slot.circuit_input)
                 continue;
-            slot.data = controlInputs[ slot.circuit_input ].input;
+            if (controlInputs.Count > slot.circuit_input)
+                continue;
+
+            slot.data = controlInputs[slot.circuit_input].input;
         }
     }
 
@@ -159,13 +168,14 @@ public class Circuit : MonoBehaviour
             sSlot slot = slots[i];
             if (slot.circuit_output == -1) //because a board input slot is a data output slot
                 continue;
-            if( robotComponents.Count < slot.circuit_output )
+            if (robotComponents.Count < slot.circuit_output)
                 continue;
             ReadSlotData(i); //update slot
-            robotComponents[slot.circuit_output].input = slot.data;
+            if (robotComponents.Count > slot.circuit_output)
+                robotComponents[slot.circuit_output].input = slot.data;
         }
     }
-    
+
     //not used
     void TransferSlotData()
     {
