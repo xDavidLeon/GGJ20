@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject decalBloodPrefab;
     private Circuit circuit;
+    private Character character;
 
     public Circuit Circuit
     {
@@ -35,6 +36,17 @@ public class GameManager : Singleton<GameManager>
                 circuit = FindObjectOfType<Circuit>();
 
             return circuit;
+        }
+    }
+
+    public Character Character
+    {
+        get
+        {
+            if (character == null)
+                character = FindObjectOfType<Character>();
+
+            return character;
         }
     }
 
@@ -50,27 +62,31 @@ public class GameManager : Singleton<GameManager>
         DOTween.Kill(this);
         if (state == GameState.Edit)
         {
-            Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f);
-            Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f);
+            Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f).SetId(this);
+            Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f).SetId(this);
 
             rtControl.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            rtControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f);
+            rtControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
             rtEdit.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            rtEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f);
+            rtEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
 
             Circuit.OpenCover();
         }
         else
         {
-            Camera.main.transform.DOMove(camControlTransform.position, 1.0f);
-            Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f);
+            Camera.main.transform.DOMove(camControlTransform.position, 1.0f).SetId(this);
+            Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f).SetId(this);
 
             rtEdit.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            rtEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f);
+            rtEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
             rtControl.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            rtControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f);
+            rtControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
 
             Circuit.CloseCover();
+
+            if (Circuit.pointOfInterest != null && Character != null)
+                Character.SetPointOfInterest(Circuit.pointOfInterest);
+
         }
         currentState = state;
     }

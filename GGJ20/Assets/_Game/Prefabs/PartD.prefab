@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de461ab80a932644db683ac35d15d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLastHit: 0
 --- !u!1 &6991825124279053605
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +285,7 @@ BoxCollider:
   m_GameObject: {fileID: 6991825124279053605}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -330,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de461ab80a932644db683ac35d15d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLastHit: 0
 --- !u!1 &8266911621684394353
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +424,7 @@ BoxCollider:
   m_GameObject: {fileID: 8266911621684394353}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -468,6 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de461ab80a932644db683ac35d15d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLastHit: 0
 --- !u!1 &8288394192460562737
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationOffset: {x: 0, y: 0, z: -0.1}
   rotationOffset: {x: 90, y: 0, z: 0}
+  upDirection: {x: 0, y: 0, z: 1}
 --- !u!1773428102 &6132417819800002180
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -549,7 +553,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0, y: 0.135, z: 0}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0.01, y: 0.11739993, z: 0}
+  - {x: 0.00999999, y: 0.11739994, z: 0}
   m_RotationOffsets:
   - {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 1

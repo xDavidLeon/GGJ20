@@ -6,6 +6,8 @@
 /// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+    public bool destroyOnLoad = true;
+
     // Check to see if we're about to be destroyed.
     private static bool m_ShuttingDown = false;
     private static object m_Lock = new object();
@@ -39,9 +41,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                         var singletonObject = new GameObject();
                         m_Instance = singletonObject.AddComponent<T>();
                         singletonObject.name = typeof(T).ToString() + " (Singleton)";
-
-                        // Make instance persistent.
-                        DontDestroyOnLoad(singletonObject);
                     }
                 }
 
@@ -56,9 +55,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         m_ShuttingDown = true;
     }
 
-
-    private void OnDestroy()
+    protected virtual void Awake()
     {
-        m_ShuttingDown = true;
+        if (Instance == this && !destroyOnLoad)
+            DontDestroyOnLoad(this.gameObject);
     }
+
+    //private void OnDestroy()
+    //{
+    //    m_ShuttingDown = true;
+    //}
 }

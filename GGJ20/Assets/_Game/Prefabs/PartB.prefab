@@ -353,7 +353,7 @@ HingeJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
+  m_MassScale: 100
   m_ConnectedMassScale: 1
 --- !u!1 &9151686679974179319
 GameObject:
@@ -478,5 +478,5 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
+  m_MassScale: 100
   m_ConnectedMassScale: 1
