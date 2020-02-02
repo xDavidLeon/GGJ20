@@ -155,6 +155,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Win()
     {
+        if (isWin) return;
         isWin = true;
         GameObject.Instantiate(particlesConfetti);
         UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 2.0f).SetDelay(2.0f);
