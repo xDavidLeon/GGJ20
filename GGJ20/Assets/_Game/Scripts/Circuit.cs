@@ -67,28 +67,7 @@ public class Circuit : MonoBehaviour
 
     void initBoard()
     {
-        sSlot A = new sSlot(139, 59, false);
-        A.circuit_output = 0;
-        slots.Add(A);
-
-        sSlot B = new sSlot(139, 103, false);
-        B.circuit_output = 1;
-        slots.Add(B);
-
-        sSlot C = new sSlot(139, 150, false);
-        C.circuit_output = 2;
-        slots.Add(C);
-
-        sSlot D = new sSlot(139, 194, false);
-        D.circuit_output = 3;
-        slots.Add(D);
-
-        sSlot NotIN = new sSlot(260, 172, false);
-        slots.Add(NotIN);        
-        
-        sSlot NotOUT = new sSlot(192, 172, true);
-        slots.Add(NotOUT);        
-
+        //circuit inputs
         sSlot W1 = new sSlot(397, 69, true);
         W1.circuit_input = 0;
         slots.Add(W1);
@@ -104,14 +83,55 @@ public class Circuit : MonoBehaviour
         sSlot W4 = new sSlot(397, 187, true);
         W4.circuit_input = 3;
         slots.Add(W4);
+        
+        //circuit outputs 4
+        sSlot A = new sSlot(139, 59, false);
+        A.circuit_output = 0;
+        slots.Add(A);
+
+        sSlot B = new sSlot(139, 103, false);
+        B.circuit_output = 1;
+        slots.Add(B);
+
+        sSlot C = new sSlot(139, 150, false);
+        C.circuit_output = 2;
+        slots.Add(C);
+
+        sSlot D = new sSlot(139, 194, false);
+        D.circuit_output = 3;
+        slots.Add(D);
+        
+        //extras 8
+        sSlot NotIN = new sSlot(260, 172, false);
+        slots.Add(NotIN);        
+        
+        sSlot NotOUT = new sSlot(192, 172, true);
+        slots.Add(NotOUT);        
+
+        sSlot MultiIN = new sSlot(311, 83, false);
+        slots.Add(MultiIN);        
+
+        sSlot MultiOUT1 = new sSlot(218, 78, true);
+        slots.Add(MultiOUT1);        
+        sSlot MultiOUT2 = new sSlot(218, 102, true);
+        slots.Add(MultiOUT2);        
+        
+        ConnectSlots(0,10,3);
+        ConnectSlots(11,4,3);
+        ConnectSlots(12,8,3);
+        ConnectSlots(9,5,3);
     }
 
     void UpdateBoard()
     {
         ReadCircuitInputs();
         
-        float f = ReadSlotData(4);
-        WriteSlotData(5,-f);
+        float f = ReadSlotData(8);
+        WriteSlotData(9,-f);
+        
+        f = ReadSlotData(10);
+        WriteSlotData(11,f);
+        WriteSlotData(12,f);
         
         WriteCircuitOutputs();
     }
@@ -197,7 +217,7 @@ public class Circuit : MonoBehaviour
         target_slot.connected_to = -1;
     }
 
-    void ConnectSlots(int origin_slot_num, int target_slot_num)
+    void ConnectSlots(int origin_slot_num, int target_slot_num, int color = -1)
     {
         sSlot origin_slot = slots[origin_slot_num];
         sSlot target_slot = slots[target_slot_num];
@@ -207,7 +227,10 @@ public class Circuit : MonoBehaviour
             DisconnectSlot(target_slot_num);
             origin_slot.connected_to = target_slot_num;
             target_slot.connected_to = origin_slot_num;
-            target_slot.color = origin_slot.color;
+            if(color == -1)
+                target_slot.color = origin_slot.color;
+            else
+                target_slot.color = origin_slot.color = color;
         }
         else
             Debug.Log("both are inputs");
@@ -348,7 +371,7 @@ public class Circuit : MonoBehaviour
             if (!slot.is_output || slot.connected_to == -1)
                 continue;
             sSlot target_slot = slots[slot.connected_to];
-            DrawWire((int)slot.pos.x, (int)slot.pos.y, (int)target_slot.pos.x, (int)target_slot.pos.y);
+            DrawWire((int)slot.pos.x, (int)slot.pos.y, (int)target_slot.pos.x, (int)target_slot.pos.y, slot.color);
         }
 
         //draw wire being dragged
