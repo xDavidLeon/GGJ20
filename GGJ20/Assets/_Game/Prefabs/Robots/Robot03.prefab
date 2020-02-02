@@ -11,6 +11,41 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 280135019820477851, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_TranslationAtRest.y
+      value: 0.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 280135019820477851, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.08880007
+      objectReference: {fileID: 0}
+    - target: {fileID: 280135019820477851, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_RotationOffsets.Array.data[0].x
+      value: -89.980225
+      objectReference: {fileID: 0}
+    - target: {fileID: 280135019820477851, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].x
+      value: 0.013999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739902838577675240, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.372
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989609917746945015, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.10100001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528818149134653999, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.369
+      objectReference: {fileID: 0}
     - target: {fileID: 5037876069623777138, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -121,6 +156,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot03
       objectReference: {fileID: 0}
+    - target: {fileID: 6134941845736156184, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: robotComponents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134941845736156184, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: robotComponents.Array.data[2]
+      value: 
+      objectReference: {fileID: 8265756042330728629}
     - target: {fileID: 6227631491666302670, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -270,6 +315,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756402796989283901, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.881
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94d06b01c7126c4ca9901e3a61fe1ae, type: 3}
+--- !u!114 &8265756042330728629 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 216615490044398960, guid: a94d06b01c7126c4ca9901e3a61fe1ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 8193261516046788037}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34625d6c146b27944853c45cf206cdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
