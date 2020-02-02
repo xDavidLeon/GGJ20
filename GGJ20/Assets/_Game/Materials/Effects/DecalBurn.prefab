@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8187381435281482386}
   - component: {fileID: 1784051785848902167}
   m_Layer: 0
-  m_Name: DecalBlood 1
+  m_Name: DecalBurn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9facbf5ec6199244b7b0009dfb9e488, type: 2}
+  - {fileID: 2100000, guid: 368d541aec41b1b46b5e72abdd7c1ec0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

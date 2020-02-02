@@ -7,7 +7,7 @@ public class TriggerFire : MonoBehaviour
     public bool isFireActive = false;
     public LayerMask hitLayerMask;
     RaycastHit hit;
-    public float radius = 1.0f;
+    public float radius = 0.25f;
     // Start is called before the first frame update
 
     void Start()

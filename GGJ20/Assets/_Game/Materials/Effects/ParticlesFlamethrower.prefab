@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3023713943545286826}
   - component: {fileID: 1877388431982361546}
   - component: {fileID: 1248543690217515680}
+  - component: {fileID: 3540611938200369109}
   m_Layer: 0
   m_Name: ParticlesFlamethrower
   m_TagString: Untagged
@@ -3555,7 +3556,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
     type: 1
     collisionMode: 0
@@ -3730,7 +3731,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 2
+    radiusScale: 0.2
     collidesWith:
       serializedVersion: 2
       m_Bits: 768
@@ -4764,7 +4765,7 @@ ParentConstraint:
   m_GameObject: {fileID: 3257448343824480254}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0.2000002, z: 0}
+  m_TranslationAtRest: {x: 0, y: 0.182, z: 0}
   m_RotationAtRest: {x: -90, y: 0, z: 0}
   m_TranslationOffsets:
   - {x: 0.013999999, y: 0.10680023, z: 0}
@@ -4781,3 +4782,18 @@ ParentConstraint:
   m_Sources:
   - sourceTransform: {fileID: 0}
     weight: 1
+--- !u!114 &3540611938200369109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257448343824480254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dccc6bfcd7f57e48872e583f4783e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 0}
+  prefabDecal: {fileID: 7565529152415531240, guid: 85c1ec6dba30c3b4b80c09252bc2bc74,
+    type: 3}

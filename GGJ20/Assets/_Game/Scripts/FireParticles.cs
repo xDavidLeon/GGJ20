@@ -22,24 +22,5 @@ public class FireParticles : MonoBehaviour
         if (numCollisionEvents == 0) return;
 
         GameManager.Instance.InstantiateDecal(prefabDecal, collisionEvents[0].intersection, -collisionEvents[0].normal, other.GetComponent<Rigidbody>());
-
-        if (other.GetComponent<Cake>() == null) return;
-        other.GetComponent<Cake>().EnableClandles();
-
-
-
-        //Rigidbody rb = other.GetComponent<Rigidbody>();
-        //int i = 0;
-
-        //while (i < numCollisionEvents)
-        //{
-        //    if (rb)
-        //    {
-        //        Vector3 pos = collisionEvents[i].intersection;
-        //        Vector3 force = collisionEvents[i].velocity * 10;
-        //        rb.AddForce(force);
-        //    }
-        //    i++;
-        //}
     }
 }
