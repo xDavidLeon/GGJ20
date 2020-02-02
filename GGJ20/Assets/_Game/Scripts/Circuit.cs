@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class sSlot
@@ -14,9 +15,6 @@ public class sSlot
     public bool is_output;
     public int circuit_output;
     public int circuit_input;
-
-    public int circuitID = 0;
-
 
     public sSlot(int x, int y, bool is_output)
     {
@@ -40,11 +38,19 @@ public class Circuit : MonoBehaviour
     public RenderTexture rt = null;
     public Texture t = null;
 
+    public MeshRenderer circuitMR = null;
+    public Image blueprintImg = null;
+    public List<Texture> circuit_textures;
+    public List<Sprite> blueprint_textures;
+
     public Vector2 cursorpos;
 
     public List<sSlot> slots;
 
     public Transform pointOfInterest;
+
+    public int levelID = 0;
+    public bool in_editor = true;
 
     Plane plane;
 
@@ -78,51 +84,113 @@ public class Circuit : MonoBehaviour
 
     void initBoard()
     {
-        sSlot A = new sSlot(139, 59, false);
-        A.circuit_output = 0;
-        slots.Add(A);
+        circuitMR.material.SetTexture( "_BaseMap", circuit_textures[ levelID ] );
+        blueprintImg.sprite = blueprint_textures[ levelID ];
 
-        sSlot B = new sSlot(139, 103, false);
-        B.circuit_output = 1;
-        slots.Add(B);
+        if( levelID == 0) //Brither ideas
+        {
+            //circuit inputs
+            sSlot W1 = new sSlot(323, 87, true);
+            W1.circuit_input = 0;
+            slots.Add(W1);
 
-        sSlot C = new sSlot(139, 150, false);
-        C.circuit_output = 2;
-        slots.Add(C);
+            //circuit outputs 4
+            sSlot A = new sSlot(200, 86, false);
+            A.circuit_output = 0;
+            slots.Add(A);
+        }
+        if( levelID == 1)
+        {
+            //circuit inputs
+            sSlot W1 = new sSlot(397, 69, true);
+            W1.circuit_input = 0;
+            slots.Add(W1);
 
-        sSlot D = new sSlot(139, 194, false);
-        D.circuit_output = 3;
-        slots.Add(D);
+            sSlot W2 = new sSlot(397, 105, true);
+            W2.circuit_input = 1;
+            slots.Add(W2);
 
-        sSlot NotIN = new sSlot(260, 172, false);
-        slots.Add(NotIN);
+            sSlot W3 = new sSlot(397, 149, true);
+            W3.circuit_input = 2;
+            slots.Add(W3);
 
-        sSlot NotOUT = new sSlot(192, 172, true);
-        slots.Add(NotOUT);
+            sSlot W4 = new sSlot(397, 187, true);
+            W4.circuit_input = 3;
+            slots.Add(W4);
 
-        sSlot W1 = new sSlot(397, 69, true);
-        W1.circuit_input = 0;
-        slots.Add(W1);
+            //circuit outputs 4
+            sSlot A = new sSlot(139, 59, false);
+            A.circuit_output = 0;
+            slots.Add(A);
 
-        sSlot W2 = new sSlot(397, 105, true);
-        W2.circuit_input = 1;
-        slots.Add(W2);
+            sSlot B = new sSlot(139, 103, false);
+            B.circuit_output = 1;
+            slots.Add(B);
 
-        sSlot W3 = new sSlot(397, 149, true);
-        W3.circuit_input = 2;
-        slots.Add(W3);
+            sSlot C = new sSlot(139, 150, false);
+            C.circuit_output = 2;
+            slots.Add(C);
 
-        sSlot W4 = new sSlot(397, 187, true);
-        W4.circuit_input = 3;
-        slots.Add(W4);
+            sSlot D = new sSlot(139, 194, false);
+            D.circuit_output = 3;
+            slots.Add(D);
+
+            //extras 8
+            sSlot NotIN = new sSlot(260, 172, false);
+            slots.Add(NotIN);
+
+            sSlot NotOUT = new sSlot(192, 172, true);
+            slots.Add(NotOUT);
+
+            sSlot MultiIN = new sSlot(311, 83, false);
+            slots.Add(MultiIN);
+
+            sSlot MultiOUT1 = new sSlot(218, 78, true);
+            slots.Add(MultiOUT1);
+            sSlot MultiOUT2 = new sSlot(218, 102, true);
+            slots.Add(MultiOUT2);
+
+            ConnectSlots(0,10,3);
+            ConnectSlots(11,4,3);
+            ConnectSlots(12,8,3);
+            ConnectSlots(9,5,3);
+        }
+        else if( levelID == 2 )
+        {
+            //circuit inputs
+            sSlot W1 = new sSlot(397, 69, true);
+            W1.circuit_input = 0;
+            slots.Add(W1);
+
+            //circuit outputs 4
+            sSlot A = new sSlot(139, 59, false);
+            A.circuit_output = 0;
+            slots.Add(A);
+
+            ConnectSlots(0,1,3);
+        }
     }
 
     void UpdateBoard()
     {
         ReadCircuitInputs();
 
-        float f = ReadSlotData(4);
-        WriteSlotData(5, -f);
+        if( levelID == 0 )
+        {
+        }
+        else if( levelID == 1 )
+        {
+            float f = ReadSlotData(8);
+            WriteSlotData(9,-f);
+
+            f = ReadSlotData(10);
+            WriteSlotData(11,f);
+            WriteSlotData(12,f);
+        }
+        else if( levelID == 2 )
+        {
+        }
+
 
         WriteCircuitOutputs();
     }
@@ -217,7 +285,7 @@ public class Circuit : MonoBehaviour
         target_slot.connected_to = -1;
     }
 
-    void ConnectSlots(int origin_slot_num, int target_slot_num)
+    void ConnectSlots(int origin_slot_num, int target_slot_num, int color = -1)
     {
         sSlot origin_slot = slots[origin_slot_num];
         sSlot target_slot = slots[target_slot_num];
@@ -227,7 +295,10 @@ public class Circuit : MonoBehaviour
             DisconnectSlot(target_slot_num);
             origin_slot.connected_to = target_slot_num;
             target_slot.connected_to = origin_slot_num;
-            target_slot.color = origin_slot.color;
+            if(color == -1)
+                target_slot.color = origin_slot.color;
+            else
+                target_slot.color = origin_slot.color = color;
         }
         else
             Debug.Log("both are inputs");
@@ -244,7 +315,7 @@ public class Circuit : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
         //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
         float enter = 0.0f;
-        if (plane.Raycast(ray, out enter))
+        if ( in_editor && plane.Raycast(ray, out enter) )
         {
             Vector2 hitpos = ray.GetPoint(enter);
             cursorpos = canvasObject.transform.InverseTransformPoint(hitpos);
@@ -368,7 +439,7 @@ public class Circuit : MonoBehaviour
             if (!slot.is_output || slot.connected_to == -1)
                 continue;
             sSlot target_slot = slots[slot.connected_to];
-            DrawWire((int)slot.pos.x, (int)slot.pos.y, (int)target_slot.pos.x, (int)target_slot.pos.y);
+            DrawWire((int)slot.pos.x, (int)slot.pos.y, (int)target_slot.pos.x, (int)target_slot.pos.y, slot.color);
         }
 
         //draw wire being dragged
@@ -393,4 +464,3 @@ public class Circuit : MonoBehaviour
         circuitCover.transform.DOLocalMoveX(0.0f, 1.0f);
     }
 }
-
