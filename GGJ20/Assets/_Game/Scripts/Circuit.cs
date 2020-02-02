@@ -164,12 +164,45 @@ public class Circuit : MonoBehaviour
             W1.circuit_input = 0;
             slots.Add(W1);
 
-            //circuit outputs 4
+            sSlot W2 = new sSlot(397, 105, true);
+            W2.circuit_input = 1;
+            slots.Add(W2);
+
+            //circuit outputs 2
             sSlot A = new sSlot(139, 59, false);
             A.circuit_output = 0;
             slots.Add(A);
 
-            //ConnectSlots(0,1,3);
+            sSlot B = new sSlot(139, 103, false);
+            B.circuit_output = 1;
+            slots.Add(B);
+
+            sSlot C = new sSlot(139, 150, false);
+            C.circuit_output = 2;
+            slots.Add(C);
+
+            sSlot D = new sSlot(139, 194, false);
+            //D.circuit_output = 3;
+            slots.Add(D);
+
+            //extras 6
+            sSlot NotIN = new sSlot(260, 172, false);
+            slots.Add(NotIN);
+
+            sSlot NotOUT = new sSlot(192, 172, true);
+            slots.Add(NotOUT);
+
+            sSlot MultiIN = new sSlot(311, 83, false);
+            slots.Add(MultiIN);
+
+            sSlot MultiOUT1 = new sSlot(218, 78, true);
+            slots.Add(MultiOUT1);
+            sSlot MultiOUT2 = new sSlot(218, 102, true);
+            slots.Add(MultiOUT2);            
+            
+            sSlot SinOUT = new sSlot(366, 172, true);
+            slots.Add(SinOUT);
+            
         }
     }
 
@@ -191,8 +224,15 @@ public class Circuit : MonoBehaviour
         }
         else if( levelID == 2 )
         {
-        }
+            float f = ReadSlotData(6);
+            WriteSlotData(7,-f);
 
+            f = ReadSlotData(8);
+            WriteSlotData(9,f);
+            WriteSlotData(10,f);
+            
+            WriteSlotData(11, Mathf.Sin( Time.time * Mathf.PI) );
+        }
 
         WriteCircuitOutputs();
     }

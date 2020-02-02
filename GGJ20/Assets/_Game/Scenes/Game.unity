@@ -1002,6 +1002,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 839328810761629671, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: circuit_textures.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 839328810761629671, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: blueprint_textures.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 839328810761629671, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: circuit_textures.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: d68cac157a2ac40e98bb2f828b9b9bf6, type: 3}
+    - target: {fileID: 839328810761629671, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: blueprint_textures.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 223bfe01101c74a6ea3d954dce827ebf,
+        type: 3}
+    - target: {fileID: 839328810761629671, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: blueprint_textures.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: be14c5e364b694c3e9e5a4dccf679f45,
+        type: 3}
     - target: {fileID: 1580703035495965490, guid: e48285f1a1706944da5762479b5e8615,
         type: 3}
       propertyPath: m_Name
@@ -1060,6 +1087,46 @@ PrefabInstance:
     - target: {fileID: 1580703035495965491, guid: e48285f1a1706944da5762479b5e8615,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897340409512307725, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897340409512307725, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897340409512307725, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897340409512307725, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897340409512307725, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811223852371793491, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811223852800393750, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756850165453154982, guid: e48285f1a1706944da5762479b5e8615,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3118,8 +3185,8 @@ MonoBehaviour:
   cursorpos: {x: 0, y: 0}
   slots: []
   pointOfInterest: {fileID: 0}
-  levelID: 0
   panelEdit: {fileID: 0}
+  panelControl: {fileID: 0}
   circuitCover: {fileID: 2015447793}
 --- !u!1001 &2525454690516932392
 PrefabInstance:
