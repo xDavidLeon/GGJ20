@@ -51,7 +51,7 @@ MonoBehaviour:
   input: 0
   chassis: {fileID: 4268627485892192080}
   ps: {fileID: 2479921419722285603}
-  triggerFire: {fileID: 0}
+  triggerFire: {fileID: 8748862836827728177}
 --- !u!1 &4939303927307990002
 GameObject:
   m_ObjectHideFlags: 0

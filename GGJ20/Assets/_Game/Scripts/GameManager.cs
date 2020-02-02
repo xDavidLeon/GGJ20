@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Effects")]
     public GameObject decalBloodPrefab;
     public GameObject particlesConfetti;
+    public AudioClip audioClipWin;
 
     private Circuit circuit;
     private Character character;
@@ -114,25 +115,29 @@ public class GameManager : Singleton<GameManager>
         DOTween.Kill(this);
         if (state == GameState.Edit)
         {
-            Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f).SetId(this);
-            Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f).SetId(this);
+            Time.timeScale = 0.0f;
+
+            Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
+            Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
             Circuit.panelControl.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
+            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
             Circuit.panelEdit.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
+            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
             Circuit.OpenCover();
         }
         else
         {
-            Camera.main.transform.DOMove(camControlTransform.position, 1.0f).SetId(this);
-            Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f).SetId(this);
+            Time.timeScale = 1.0f;
+
+            Camera.main.transform.DOMove(camControlTransform.position, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
+            Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
             Circuit.panelEdit.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this);
+            Circuit.panelEdit.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
             Circuit.panelControl.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this);
+            Circuit.panelControl.GetComponent<CanvasGroup>().DOFade(1.0f, 1.0f).SetDelay(1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
             Circuit.CloseCover();
 
@@ -158,8 +163,14 @@ public class GameManager : Singleton<GameManager>
         if (isWin) return;
         isWin = true;
         GameObject.Instantiate(particlesConfetti);
-        UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 2.0f).SetDelay(2.0f);
+        UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 2.0f).SetDelay(3.0f);
         Invoke("LoadNextLevel", 6);
+        Invoke("WinSound", 0.1f);
+    }
+
+    private void WinSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(audioClipWin);
     }
 
     private void LoadNextLevel()

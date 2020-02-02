@@ -394,6 +394,7 @@ MonoBehaviour:
     type: 3}
   particlesConfetti: {fileID: 6418608833432234545, guid: a3115dc2af393cc42b886f83a1df0160,
     type: 3}
+  audioClipWin: {fileID: 8300000, guid: 8267ba863150b49f888f0190a1101e24, type: 3}
   level: 0
 --- !u!82 &4947285122517110628
 AudioSource:

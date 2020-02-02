@@ -509,12 +509,12 @@ public class Circuit : MonoBehaviour
 
     public void OpenCover()
     {
-        circuitCover.transform.DOLocalMoveX(-0.3f, 1.0f);
+        circuitCover.transform.DOLocalMoveX(-0.3f, 1.0f).SetUpdate(UpdateType.Normal, true);
     }
 
     public void CloseCover()
     {
-        circuitCover.transform.DOLocalMoveX(0.0f, 1.0f);
+        circuitCover.transform.DOLocalMoveX(0.0f, 1.0f).SetUpdate(UpdateType.Normal, true);
     }
 
     public void ExitEditMode()

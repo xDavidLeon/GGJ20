@@ -5,7 +5,7 @@ using UnityEngine;
 public class ComponentFlamethrower : RobotComponent
 {
     public ParticleSystem ps;
-    public BoxCollider triggerFire;
+    public TriggerFire triggerFire;
 
     private void Awake()
     {
@@ -17,12 +17,12 @@ public class ComponentFlamethrower : RobotComponent
         if (input > 0.0f)
         {
             e.enabled = true;
-            triggerFire.enabled = true;
+            triggerFire.isFireActive = true;
         }
         else
         {
             e.enabled = false;
-            triggerFire.enabled = false;
+            triggerFire.isFireActive = false;
         }
     }
 }
