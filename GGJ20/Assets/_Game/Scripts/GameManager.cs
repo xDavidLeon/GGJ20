@@ -115,8 +115,6 @@ public class GameManager : Singleton<GameManager>
         DOTween.Kill(this);
         if (state == GameState.Edit)
         {
-            Time.timeScale = 0.0f;
-
             Camera.main.transform.DOMove(Circuit.cam.transform.position, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
             Camera.main.transform.DORotate(Circuit.cam.transform.eulerAngles, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
@@ -129,8 +127,6 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Time.timeScale = 1.0f;
-
             Camera.main.transform.DOMove(camControlTransform.position, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
             Camera.main.transform.DORotate(camControlTransform.eulerAngles, 1.0f).SetId(this).SetUpdate(UpdateType.Normal, true);
 
@@ -162,6 +158,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (isWin) return;
         isWin = true;
+        SetGameStateControl();
         GameObject.Instantiate(particlesConfetti);
         UIWin.GetComponent<CanvasGroup>().DOFade(1.0f, 2.0f).SetDelay(3.0f);
         Invoke("LoadNextLevel", 6);
