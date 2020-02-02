@@ -17,6 +17,7 @@ public class sSlot
 
     public int circuitID = 0;
 
+
     public sSlot(int x, int y, bool is_output)
     {
         this.pos = new Vector2(x, y);
@@ -42,6 +43,8 @@ public class Circuit : MonoBehaviour
     public Vector2 cursorpos;
 
     public List<sSlot> slots;
+
+    public Transform pointOfInterest;
 
     Plane plane;
 
