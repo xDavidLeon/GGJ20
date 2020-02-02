@@ -72,6 +72,8 @@ public class Circuit : MonoBehaviour
 
     private void Start()
     {
+        //GatherRobotComponents();
+        GatherControlInputs();
     }
 
     void initBoard()
@@ -150,11 +152,16 @@ public class Circuit : MonoBehaviour
         for (int j = 0; j < slots.Count; ++j)
         {
             sSlot slot = slots[j];
+            if (slot == null)
+            {
+                Debug.LogWarning($"Null slot {j}", this);
+                continue;
+            }
             if (slot.circuit_input == -1) //because a board input slot is a data output slot
                 continue;
             if (controlInputs.Count < slot.circuit_input)
                 continue;
-            if (controlInputs.Count > slot.circuit_input)
+            if (controlInputs.Count >= slot.circuit_input)
                 continue;
 
             slot.data = controlInputs[slot.circuit_input].input;
