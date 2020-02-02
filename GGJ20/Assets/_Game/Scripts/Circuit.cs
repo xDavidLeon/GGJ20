@@ -204,11 +204,24 @@ public class Circuit : MonoBehaviour
             slots.Add(SinOUT);
             
         }
+        
+        //ground
+        sSlot G1 = new sSlot(373, 209, true);
+        slots.Add(G1);
+        sSlot G2 = new sSlot(394, 209, true);
+        slots.Add(G1);
+        sSlot G3 = new sSlot(410, 209, true);
+        slots.Add(G1);
     }
 
     void UpdateBoard()
     {
         ReadCircuitInputs();
+        
+        //grounds
+        slots[ slots.Count - 1 ].data = 0;
+        slots[ slots.Count - 2 ].data = 0;
+        slots[ slots.Count - 3 ].data = 0;
 
         if( levelID == 0 )
         {
