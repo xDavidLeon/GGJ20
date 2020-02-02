@@ -166,7 +166,7 @@ public class Circuit : MonoBehaviour
             A.circuit_output = 0;
             slots.Add(A);
 
-            ConnectSlots(0,1,3);
+            //ConnectSlots(0,1,3);
         }
     }
 
