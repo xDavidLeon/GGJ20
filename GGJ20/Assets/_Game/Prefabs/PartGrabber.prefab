@@ -500,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 8288394192460562737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.135, z: 0}
-  m_LocalScale: {x: 0.22150527, y: 0.22150527, z: 0.22150527}
+  m_LocalScale: {x: 0.4910993, y: 0.4910993, z: 0.4910993}
   m_Children: []
   m_Father: {fileID: 3200109434335452436}
   m_RootOrder: 3
@@ -553,7 +553,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0, y: 0.135, z: 0}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0.00999999, y: 0.11739994, z: 0}
+  - {x: 0.01, y: 0.11739993, z: 0}
   m_RotationOffsets:
   - {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 1
