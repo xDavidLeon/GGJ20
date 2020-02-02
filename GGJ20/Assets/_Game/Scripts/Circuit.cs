@@ -37,7 +37,7 @@ public class Circuit : MonoBehaviour
     public Camera cam;
     public RenderTexture rt = null;
     public Texture t = null;
-    
+
     public MeshRenderer circuitMR = null;
     public Image blueprintImg = null;
     public List<Texture> circuit_textures;
@@ -48,7 +48,7 @@ public class Circuit : MonoBehaviour
     public List<sSlot> slots;
 
     public Transform pointOfInterest;
-    
+
     public int levelID = 0;
     public bool in_editor = true;
 
@@ -64,6 +64,12 @@ public class Circuit : MonoBehaviour
         robotComponents = GetComponentsInChildren<RobotComponent>().ToList();
     }
 
+    [ContextMenu("Gather Control Inputs")]
+    public void GatherControlInputs()
+    {
+        controlInputs = Object.FindObjectsOfType<ControlInput>().ToList();
+    }
+
     void Awake()
     {
         slots = new List<sSlot>();
@@ -72,21 +78,21 @@ public class Circuit : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     void initBoard()
     {
         circuitMR.material.SetTexture( "_BaseMap", circuit_textures[ levelID ] );
         blueprintImg.sprite = blueprint_textures[ levelID ];
-        
+
         if( levelID == 0) //Brither ideas
         {
             //circuit inputs
             sSlot W1 = new sSlot(323, 87, true);
             W1.circuit_input = 0;
             slots.Add(W1);
-            
+
             //circuit outputs 4
             sSlot A = new sSlot(200, 86, false);
             A.circuit_output = 0;
@@ -130,18 +136,18 @@ public class Circuit : MonoBehaviour
 
             //extras 8
             sSlot NotIN = new sSlot(260, 172, false);
-            slots.Add(NotIN);        
+            slots.Add(NotIN);
 
             sSlot NotOUT = new sSlot(192, 172, true);
-            slots.Add(NotOUT);        
+            slots.Add(NotOUT);
 
             sSlot MultiIN = new sSlot(311, 83, false);
-            slots.Add(MultiIN);        
+            slots.Add(MultiIN);
 
             sSlot MultiOUT1 = new sSlot(218, 78, true);
-            slots.Add(MultiOUT1);        
+            slots.Add(MultiOUT1);
             sSlot MultiOUT2 = new sSlot(218, 102, true);
-            slots.Add(MultiOUT2);        
+            slots.Add(MultiOUT2);
 
             ConnectSlots(0,10,3);
             ConnectSlots(11,4,3);
@@ -154,7 +160,7 @@ public class Circuit : MonoBehaviour
             sSlot W1 = new sSlot(397, 69, true);
             W1.circuit_input = 0;
             slots.Add(W1);
-            
+
             //circuit outputs 4
             sSlot A = new sSlot(139, 59, false);
             A.circuit_output = 0;
@@ -167,7 +173,7 @@ public class Circuit : MonoBehaviour
     void UpdateBoard()
     {
         ReadCircuitInputs();
-        
+
         if( levelID == 0 )
         {
         }
@@ -183,30 +189,31 @@ public class Circuit : MonoBehaviour
         else if( levelID == 2 )
         {
         }
-        
+
+
         WriteCircuitOutputs();
     }
-    
-    float ReadSlotData( int slotnum )
+
+    float ReadSlotData(int slotnum)
     {
         sSlot slot = slots[slotnum];
-        if(slot.connected_to == -1)
+        if (slot.connected_to == -1)
             return slot.data;
         sSlot target_slot = slots[slot.connected_to];
         slot.data = target_slot.data;
         return target_slot.data;
     }
-    
-    void WriteSlotData( int slotnum, float data )
+
+    void WriteSlotData(int slotnum, float data)
     {
         sSlot slot = slots[slotnum];
         slot.data = data;
-        if(slot.connected_to == -1)
+        if (slot.connected_to == -1)
             return;
         sSlot target_slot = slots[slot.connected_to];
         target_slot.data = data;
     }
-    
+
     void ReadCircuitInputs()
     {
         for (int j = 0; j < slots.Count; ++j)
@@ -214,9 +221,12 @@ public class Circuit : MonoBehaviour
             sSlot slot = slots[j];
             if (slot.circuit_input == -1) //because a board input slot is a data output slot
                 continue;
-            if( controlInputs.Count < slot.circuit_input )
+            if (controlInputs.Count < slot.circuit_input)
                 continue;
-            slot.data = controlInputs[ slot.circuit_input ].input;
+            if (controlInputs.Count > slot.circuit_input)
+                continue;
+
+            slot.data = controlInputs[slot.circuit_input].input;
         }
     }
 
@@ -227,13 +237,14 @@ public class Circuit : MonoBehaviour
             sSlot slot = slots[i];
             if (slot.circuit_output == -1) //because a board input slot is a data output slot
                 continue;
-            if( robotComponents.Count < slot.circuit_output )
+            if (robotComponents.Count < slot.circuit_output)
                 continue;
             ReadSlotData(i); //update slot
-            robotComponents[slot.circuit_output].input = slot.data;
+            if (robotComponents.Count > slot.circuit_output)
+                robotComponents[slot.circuit_output].input = slot.data;
         }
     }
-    
+
     //not used
     void TransferSlotData()
     {
@@ -447,4 +458,3 @@ public class Circuit : MonoBehaviour
         circuitCover.transform.DOLocalMoveX(0.0f, 1.0f);
     }
 }
-

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3200109434335452436}
   - component: {fileID: 5001229236178934394}
   m_Layer: 0
-  m_Name: PartD
+  m_Name: PartGrabber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 100
+  m_MassScale: 10000
   m_ConnectedMassScale: 1
 --- !u!114 &5251892347870932352
 MonoBehaviour:
@@ -317,7 +317,7 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 100
+  m_MassScale: 10000
   m_ConnectedMassScale: 1
 --- !u!114 &287483959181519025
 MonoBehaviour:
@@ -456,7 +456,7 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 100
+  m_MassScale: 10000
   m_ConnectedMassScale: 1
 --- !u!114 &6149796102322651648
 MonoBehaviour:

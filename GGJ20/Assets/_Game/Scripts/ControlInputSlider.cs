@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-public class ControlInputSlider : ControlInput
+public class ControlInputSlider : ControlInput, IPointerUpHandler
 {
     public AnimationCurve inputCurve;
 
@@ -19,5 +20,10 @@ public class ControlInputSlider : ControlInput
     {
         input = inputCurve.Evaluate(slider.value);
         //input = slider.value;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        slider.value = 0.0f;
     }
 }
