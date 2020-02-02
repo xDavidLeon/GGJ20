@@ -5,6 +5,8 @@ using UnityEngine;
 public class TriggerFire : MonoBehaviour
 {
     public bool isFireActive = false;
+    public LayerMask hitLayerMask;
+    RaycastHit hit;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,10 @@ public class TriggerFire : MonoBehaviour
     {
         if (isFireActive == false) return;
 
+        if (Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 1.0f, hitLayerMask))
+        {
+
+        }
 
     }
 
