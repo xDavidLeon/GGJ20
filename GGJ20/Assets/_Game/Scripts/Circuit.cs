@@ -209,9 +209,9 @@ public class Circuit : MonoBehaviour
         sSlot G1 = new sSlot(373, 209, true);
         slots.Add(G1);
         sSlot G2 = new sSlot(394, 209, true);
-        slots.Add(G1);
+        slots.Add(G2);
         sSlot G3 = new sSlot(410, 209, true);
-        slots.Add(G1);
+        slots.Add(G3);
     }
 
     void UpdateBoard()
@@ -219,9 +219,9 @@ public class Circuit : MonoBehaviour
         ReadCircuitInputs();
         
         //grounds
-        slots[ slots.Count - 1 ].data = 0;
-        slots[ slots.Count - 2 ].data = 0;
-        slots[ slots.Count - 3 ].data = 0;
+        slots[ slots.Count - 1 ].data = 1;
+        slots[ slots.Count - 2 ].data = 1;
+        slots[ slots.Count - 3 ].data = 1;
 
         if( levelID == 0 )
         {
